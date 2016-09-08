@@ -96,6 +96,8 @@ type CommonConfig struct {
 	CorsHeaders          string              `json:"api-cors-header,omitempty"`
 	EnableCors           bool                `json:"api-enable-cors,omitempty"`
 
+	UserAgent string `json:"user-agent,omitempty"`
+
 	// LiveRestoreEnabled determines whether we should keep containers
 	// alive upon daemon shutdown/start
 	LiveRestoreEnabled bool `json:"live-restore,omitempty"`
@@ -173,6 +175,7 @@ func (config *Config) InstallCommonFlags(flags *pflag.FlagSet) {
 	flags.StringVar(&config.ClusterStore, "cluster-store", "", "URL of the distributed storage backend")
 	flags.Var(opts.NewNamedMapOpts("cluster-store-opts", config.ClusterOpts, nil), "cluster-store-opt", "Set cluster store options")
 	flags.StringVar(&config.CorsHeaders, "api-cors-header", "", "Set CORS headers in the remote API")
+	flags.StringVar(&config.UserAgent, "user-agent", "", "Set custom user-agent header")
 	flags.IntVar(&maxConcurrentDownloads, "max-concurrent-downloads", defaultMaxConcurrentDownloads, "Set the max concurrent downloads for each pull")
 	flags.IntVar(&maxConcurrentUploads, "max-concurrent-uploads", defaultMaxConcurrentUploads, "Set the max concurrent uploads for each push")
 

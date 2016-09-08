@@ -28,6 +28,7 @@ type Config struct {
 	Version     string
 	SocketGroup string
 	TLSConfig   *tls.Config
+	UserAgent   string
 }
 
 // Server contains instance details for the server

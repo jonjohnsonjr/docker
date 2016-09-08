@@ -166,6 +166,7 @@ func (cli *DaemonCli) start(opts daemonOptions) (err error) {
 		Version:     dockerversion.Version,
 		EnableCors:  cli.Config.EnableCors,
 		CorsHeaders: cli.Config.CorsHeaders,
+		UserAgent:   cli.Config.UserAgent,
 	}
 
 	if cli.Config.TLS {
@@ -430,7 +431,7 @@ func (cli *DaemonCli) initMiddlewares(s *apiserver.Server, cfg *apiserver.Config
 		s.UseMiddleware(c)
 	}
 
-	u := middleware.NewUserAgentMiddleware(v)
+	u := middleware.NewUserAgentMiddleware(v, cfg.UserAgent)
 	s.UseMiddleware(u)
 
 	cli.authzMiddleware = authorization.NewMiddleware(cli.Config.AuthorizationPlugins)
