@@ -13,15 +13,15 @@ import (
 // UserAgentMiddleware is a middleware that validates the client user-agent.
 type UserAgentMiddleware struct {
 	serverVersion string
-	userAgent     string
+	customUserAgent     string
 }
 
 // NewUserAgentMiddleware creates a new UserAgentMiddleware
 // with the server version and a custom user-agent.
 func NewUserAgentMiddleware(s string, ua string) UserAgentMiddleware {
 	return UserAgentMiddleware{
-		serverVersion: s,
-		userAgent:     ua,
+		serverVersion:   s,
+		customUserAgent: ua,
 	}
 }
 
@@ -44,8 +44,8 @@ func (u UserAgentMiddleware) WrapHandler(handler func(ctx context.Context, w htt
 			}
 		}
 
-		if u.userAgent != "" {
-			ctx = context.WithValue(ctx, httputils.UAStringKey, u.userAgent)
+		if u.customUserAgent != "" {
+			ctx = context.WithValue(ctx, httputils.CustomUAStringKey, u.customUserAgent)
 		}
 
 		return handler(ctx, w, r, vars)

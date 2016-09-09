@@ -18,6 +18,10 @@ const APIVersionKey = "api-version"
 // UAStringKey is used as key type for user-agent string in net/context struct
 const UAStringKey = "upstream-user-agent"
 
+// CustomUAStringKey is used as a key type for user-agent string in net/context struct.
+// This overrides the normal user-agent string.
+const CustomUAStringKey = "custom-user-agent"
+
 // APIFunc is an adapter to allow the use of ordinary functions as Docker API endpoints.
 // Any function that has the appropriate signature can be registered as an API endpoint (e.g. getVersion).
 type APIFunc func(ctx context.Context, w http.ResponseWriter, r *http.Request, vars map[string]string) error

@@ -14,6 +14,11 @@ import (
 // In accordance with RFC 7231 (5.5.3) is of the form:
 //    [docker client's UA] UpstreamClient([upstream client's UA])
 func DockerUserAgent(ctx context.Context) string {
+	customUA := getCustomUserAgentFromContext(ctx)
+	if len(customUA) > 0 {
+		return customUA
+	}
+
 	httpVersion := make([]useragent.VersionInfo, 0, 6)
 	httpVersion = append(httpVersion, useragent.VersionInfo{Name: "docker", Version: Version})
 	httpVersion = append(httpVersion, useragent.VersionInfo{Name: "go", Version: runtime.Version()})
@@ -43,6 +48,18 @@ func getUserAgentFromContext(ctx context.Context) string {
 		}
 	}
 	return upstreamUA
+}
+
+// getCustomUserAgentFromContext returns the custom user-agent context stored in ctx, if one exists
+func getCustomUserAgentFromContext(ctx context.Context) string {
+	var customUA string
+	if ctx != nil {
+		var ki interface{} = ctx.Value(httputils.CustomUAStringKey)
+		if ki != nil {
+			customUA = ctx.Value(httputils.CustomUAStringKey).(string)
+		}
+	}
+	return customUA
 }
 
 // escapeStr returns s with every rune in charsToEscape escaped by a backslash
