@@ -75,6 +75,7 @@ Options:
       --tlscert=~/.docker/cert.pem           Path to TLS certificate file
       --tlskey=~/.docker/key.pem             Path to TLS key file
       --tlsverify                            Use TLS and verify the remote
+      --user-agent                           Set custom user agent for registry
       --userland-proxy=true                  Use userland proxy for loopback traffic
       --userns-remap                         User/Group setting for user namespaces
       -v, --version                          Print version information and quit

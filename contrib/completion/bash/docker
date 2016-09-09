@@ -935,6 +935,7 @@ _docker_daemon() {
 		--registry-mirror
 		--storage-driver -s
 		--storage-opt
+		--user-agent
 		--userns-remap
 	"
 
